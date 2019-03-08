@@ -1,31 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Style This</title>
     <style>
-
+      /*That "blue focus" border, what can/should we do?
+      Space out the items nicely
+      Highlight :invalid state
+      Work with Pseudo selectors*/
+      * {
+        box-sizing: border-box;
+      }
+      input:focus,
+      textarea:focus {
+        border: 0;
+        background-color: gold;
+      }
+      :not(input:focus) {
+        border: 0;
+        background-color: burlywood;
+      }
+      input,
+      textarea {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 12vw;
+      }
+      input:invalid {
+        border: 5px dashed orangered;
+      }
+      :not(textarea),
+      :not(input) {
+      }
+      input[type="submit"] {
+        border: grey solid 1px;
+        background-color: white;
+      }
+      form {
+        width: 15vw;
+        background-color: pink;
+        margin: 1em;
+        padding: 1em;
+      }
+      h1::first-letter {
+        font-weight: bold;
+        font-size: 4em;
+      }
+      h1::after {
+        content: " I did it ✓ *";
+        color: chartreuse;
+      }
+      span::after {
+        content: "*";
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Add your company</h1>
     <form autocomplete="off">
-        <label for="form_title">Title</label>
-        <input type="text" name="title" id="form_title" required />
-        <label for="form_url">Website</label>
-        <input type="url" name="url" id="form_url" />
-        <label for="form_email">E-mail</label>
-        <input type="email" name="email" id="form_email" required />
-        <label>
-            <span>Comments</span>
-            <textarea name="comments"></textarea>
-        </label>
-        <input type="submit" name="submit" value="Send" />
+      <label for="form_title">Title</label>
+      <input type="text" name="title" id="form_title" required />
+      <label for="form_url">Website</label>
+      <input type="url" name="url" id="form_url" />
+      <label for="form_email">E-mail</label>
+      <input type="email" name="email" id="form_email" required />
+      <label>
+        <span>Comments</span>
+        <textarea name="comments"></textarea>
+      </label>
+      <input type="submit" name="submit" value="Send" />
     </form>
-</body>
-
+  </body>
+  <script>
+    const form = document.querySelector("form");
+    form.elements.title.addEventListener("blur", e => {
+      if (form.elements.title.checkValidity()) {
+        console.log("yes");
+        form.elements.email.setAttribute("disabled", true);
+      } else {
+        console.log("no");
+      }
+    });
+  </script>
 </html>
